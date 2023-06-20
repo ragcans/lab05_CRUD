@@ -78,21 +78,45 @@ app.get( "/visualizer/:id", ( req, res, next ) => {
 
 // define a route for assignment DELETE
 const delete_menu_sql = `
+    DELETE m, a
+    FROM menu m
+    LEFT JOIN addons a
+        ON m.menu_id = a.menu_id
+    WHERE a.menu_id = ?;
+`
+
+const delete_drinks_sql = `
     DELETE 
     FROM menu
-    WHERE menu_id = ?;
+    WHERE menu_id = ?
 `
+
 app.get("/visualizer/:id/delete", ( req, res ) => {
-    db.execute(delete_menu_sql, [req.params.id], (error, results) => {
-        console.log(req.params.id);
-        if (DEBUG)
-            console.log(error ? error : results);
-        if (error)
-            res.status(500).send(error); //Internal Server Error
-        else {
-            res.redirect("/visualizer");
-        }
-    });
+    if (req.params.id == 2 || req.params.id == 3) {
+        db.execute(delete_drinks_sql, [req.params.id], (error, results) => {
+            console.log(req.params.id);
+            if (DEBUG)
+                console.log(error ? error : results);
+            if (error)
+                res.status(500).send(error); //Internal Server Error
+            else {
+                res.redirect("/visualizer");
+            }
+        });
+    }
+
+    else {
+        db.execute(delete_menu_sql, [req.params.id], (error, results) => {
+            console.log(req.params.id);
+            if (DEBUG)
+                console.log(error ? error : results);
+            if (error)
+                res.status(500).send(error); //Internal Server Error
+            else {
+                res.redirect("/visualizer");
+            }
+        });
+    }    
 });
 
 // define a route for menu CREATE
@@ -102,6 +126,8 @@ const create_menu_sql = `
     VALUES 
         (?, ?, ?);
 `
+
+
 app.post("/visualizer", ( req, res ) => {
     db.execute(create_menu_sql, [req.body.amount, req.body.menu_name, req.body.price], (error, results) => {
         if (DEBUG)
@@ -122,12 +148,11 @@ const update_menu_sql = `
     SET
         order_type = ?,
         amount = ?,
-        addon_type = ?,
     WHERE
         menu_id = ?
 `
-app.post("/assignments/:id", ( req, res ) => {
-    db.execute(update_menu_sql, [req.body.ingredients, req.body.priority, req.body.addons], (error, results) => {
+app.post("/visualizer/:id", ( req, res ) => {
+    db.execute(update_menu_sql, [req.body.ingredients, req.body.amount, req.body.addons], (error, results) => {
         if (DEBUG)
             console.log(error ? error : results);
         if (error)

@@ -69,8 +69,6 @@
                 <h3>Edit order:</h3>
                 <form id="updateForm">
                     <div class="row">
-
-
                             <div class="input-field col s8">
                                 <select type="number" id="ingredientInput" name="ingredients">
                                     <option value="" disabled>Choose: </option>
@@ -92,38 +90,11 @@
                         </div>
 
 
-
                         <div class="input-field col s4">
-                            <input type="number" id="amountInput" name="priority" class="validate" min=1 max=10 value="<%= menu.amount %>">
+                            <input type="number" id="amountInput" name="amount" class="validate" min=1 max=10 value="<%= menu.amount %>">
                             <label for="amountInput">Amount:</label>
                         </div>
 
-
-                        <!-- <div class="input-field col s6">
-                            <form action="#" id="addonInput" name="addons">
-                                <p>
-                                    <label>Add-ons:</label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" class="filled-in" />
-                                        <span>Blueberries</span>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" class="filled-in" />
-                                        <span>Strawberries</span>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" class="filled-in" />
-                                        <span>Bananas</span>
-                                    </label>
-                                </p>
-                            </form>
-                        </div> -->
                         <div class="input-field col s6">
                             <form action="#" id="addonInput" name="addons">
                                 <p>
@@ -138,7 +109,7 @@
                                     <% currentAddons.forEach(function(addon) { %>
                                         <p>
                                             <label>
-                                                <input type="checkbox" class="filled-in" <% if (addons.includes(addon)) { %> checked <% } %> />
+                                                <input id="addonInput" name="addons" type="checkbox" class="filled-in" <% if (addons.includes(addon)) { %> checked <% } %> />
                                                     <span>
                                                         <%= addon %>
                                                     </span>
@@ -171,6 +142,8 @@
     <!-- Auto-initialize Materialize elements (Note - more specific initialization may be required for certain elements)
             Reference: https://materializecss.com/auto-init.html -->
     <script src="/scripts/materializeAutoInit.js"></script>
+
+    <script src="/scripts/script.js"></script>
 
 </body>
 

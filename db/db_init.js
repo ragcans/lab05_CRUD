@@ -30,7 +30,7 @@ const create_addons_table_sql = `
         addons_id INT PRIMARY KEY AUTO_INCREMENT,
         menu_id INT NOT NULL,
         addons_type VARCHAR(255) NOT NULL,
-        FOREIGN KEY (menu_id) REFERENCES menu(menu_id)
+        FOREIGN KEY (menu_id) REFERENCES menu(menu_id) ON DELETE CASCADE
     );
 `
 

@@ -64,75 +64,113 @@
     <!-- Menu Container -->
     <div class="container">
         <h2>Menu</h2>
-        <div class="row">
-            <div class="col s12">
-                <!-- Menu Items -->
-                <div class="col s4">
-                    <div class="card hoverable">
-                        <div class="card-image">
-                            <img src="images/chickensandwich.png">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                    class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title">Chicken Sandwich</span>
-                            <p>$8.43</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card hoverable">
-                        <div class="card-image">
-                            <img src="images/pancake.png">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i
-                                class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title">Pancakes</span>
-                            <p>$9.29</p>
+        <form id="menu_items" action="/visualizer" method="post">  
+            <div class="row">
+                <div class="col s12">
+                    <!-- Menu Items -->
+                    <div class="col s4">
+                        <input type="hidden" id="amount" name="amount">
+                        <input type="hidden" id="menu_name" name="menu_name">
+                        <input type="hidden" id="price" name="price">
+                        <!-- <input type="hidden" id="desc" name="description"> -->
+                        <!-- <input type="hidden" id="order_type" name="order_type"> -->
+
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="images/chickensandwich.png">
+                                <button type="submit" class="btn-floating halfway-fab waves-effect waves-light red" onclick="submitForm('chickensandwich')">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">Classic Chicken Sandwich</span>
+                                <p>$8.43</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col s4">
-                    <div class="card hoverable">
-                        <div class="card-image">
-                            <img src="images/cocacola.png">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i 
-                                class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title">Coke</span>
-                            <p>$0.99</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s4">
-                    <div class="card hoverable">
-                        <div class="card-image">
-                            <img src="images/water.png">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i 
-                                class="material-icons">add</i></a>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title">Water</span>
-                            <p>$0.99</p>
+                    <div class="col s4">
+                        <input type="hidden" id="amount" name="amount">
+                        <input type="hidden" id="menu_name" name="menu_name">
+                        <input type="hidden" id="price" name="price">
+                        <!-- <input type="hidden" id="desc" name="description"> -->
+                        <!-- <input type="hidden" id="order_type" name="order_type"> -->
+
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="images/pancake.png">
+                                <button type="submit" class="btn-floating halfway-fab waves-effect waves-light red" onclick="submitForm('pancake')">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">Pancakes</span>
+                                <p>$9.29</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col s4">
-                    <div class="card hoverable">
-                        <div class="card-image">
-                            <img src="images/egg.png">
-                            <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                    <div class="col s4">
+                        <input type="hidden" id="amount" name="amount">
+                        <input type="hidden" id="menu_name" name="menu_name">
+                        <input type="hidden" id="price" name="price">
+                        <!-- <input type="hidden" id="desc" name="description"> -->
+                        <!-- <input type="hidden" id="order_type" name="order_type"> -->
+
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="images/cocacola.png">
+                                <button type="submit" class="btn-floating halfway-fab waves-effect waves-light red" onclick="submitForm('cola')">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">Coke</span>
+                                <p>$0.99</p>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <span class="card-title">Omelette</span>
-                            <p>$13.37</p>
+                    </div>
+                    <div class="col s4">
+                        <input type="hidden" id="amount" name="amount">
+                        <input type="hidden" id="menu_name" name="menu_name">
+                        <input type="hidden" id="price" name="price">
+                        <!-- <input type="hidden" id="desc" name="description"> -->
+                        <!-- <input type="hidden" id="order_type" name="order_type"> -->
+
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="images/water.png">
+                                <button type="submit" class="btn-floating halfway-fab waves-effect waves-light red" onclick="submitForm('water')">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">Water</span>
+                                <p>$0.99</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s4">
+                        <input type="hidden" id="amount" name="amount">
+                        <input type="hidden" id="menu_name" name="menu_name">
+                        <input type="hidden" id="price" name="price">
+                        <!-- <input type="hidden" id="desc" name="description"> -->
+                        <!-- <input type="hidden" id="order_type" name="order_type"> -->
+
+                        <div class="card hoverable">
+                            <div class="card-image">
+                                <img src="images/egg.png">
+                                <button type="submit" class="btn-floating halfway-fab waves-effect waves-light red" onclick="submitForm('omelette')">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">Omelette</span>
+                                <p>$13.37</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 
 
@@ -142,6 +180,8 @@
     <!-- Auto-initialize Materialize elements (Note - more specific initialization may be required for certain elements)
         Reference: https://materializecss.com/auto-init.html -->
     <script src="/scripts/materializeAutoInit.js"></script>
+
+    <script src="/scripts/script.js"></script>
 
 </body>
 </html>
