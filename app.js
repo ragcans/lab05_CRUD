@@ -2,6 +2,7 @@
 const express = require("express");
 const logger = require("morgan");
 const db = require("./db/db_connection");
+const async = require('async');
 const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
@@ -149,13 +150,12 @@ app.post("/visualizer", ( req, res ) => {
 // define a route for assignment UPDATE
 const update_menu_sql = `
     UPDATE
-        menu, addons
+        menu
     SET
         order_type = ?,
-        amount = ?, 
-        addons_type = ?
+        amount = ?
     WHERE
-        menu.menu_id = ?
+        menu_id = ?
 `
 
 const delete_addons_sql = `
@@ -166,20 +166,44 @@ const delete_addons_sql = `
         menu_id = ?
 `
 
-app.post("/visualizer/:id", ( req, res ) => { 
+const insert_addons_sql = `
+    INSERT INTO addons
+        (menu_id, addons_type)
+    VALUES 
+        (?, ?)
+`
+
+app.post("/visualizer/:id", async ( req, res ) => { 
     console.log("reqbod:");
     console.log(req.body); 
     console.log("param id:");
     console.log(req.params.id);
-    db.execute(update_menu_sql, [req.body.ingredients, req.body.amount, req.body.addons, req.params.id], (error, results) => {
-        if (DEBUG)
-            console.log(error ? error : results);
-        if (error)
-            res.status(500).send(error); //Internal Server Error
-        else { 
-            res.redirect(`/visualizer/${req.params.id}`);
-        }
-    });
+
+    const addons = req.body.addons || []; // the or is used in case there is no selection of addons
+
+    db.execute(update_menu_sql, [req.body.ingredients, req.body.amount, req.params.id]);
+
+    db.execute(delete_addons_sql, [req.params.id]);
+
+    if (addons.length > 0) {
+        async.each(addons, (addon, callback) => {
+            db.execute(insert_addons_sql, [req.params.id, addon], (error) => {
+                if (error) {
+                    callback(error);
+                } else {
+                    callback(null);
+                }
+            });
+        }, (error) => {
+            if (error) {
+                res.status(500).send(error); // Internal Server Error
+            } else {
+                res.redirect(`/visualizer/${req.params.id}`);
+            }
+        });
+    } else {
+        res.redirect(`/visualizer/${req.params.id}`);
+    }
 });
 
 // start the server

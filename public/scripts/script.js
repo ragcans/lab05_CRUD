@@ -19,7 +19,7 @@ function submitForm(buttonId) {
             menuNameField.value = "Pancakes";
             priceField.value = 9.29;
             descField.value = "A true breakfast classic that started it all. Get five of our fluffy, world-famous buttermilk pancakes topped with whipped real butter.";
-            orderTypeField.value = "Souffle";
+            orderTypeField.value = "Buttermilk";
             break;
         case "cola":
             amountField.value = 1;
