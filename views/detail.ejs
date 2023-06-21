@@ -67,7 +67,7 @@
         <div class="modal" id="edit">
             <div class="modal-content">
                 <h3>Edit order:</h3>
-                <form id="updateForm">
+                <form id="updateForm" method="post" action="/visualizer/<%= menu.menu_id %>" >
                     <div class="row">
                             <div class="input-field col s8">
                                 <select type="number" id="ingredientInput" name="ingredients">
@@ -109,7 +109,7 @@
                                     <% currentAddons.forEach(function(addon) { %>
                                         <p>
                                             <label>
-                                                <input id="addonInput" name="addons" type="checkbox" class="filled-in" <% if (addons.includes(addon)) { %> checked <% } %> />
+                                                <input id="addonInput" name="addons" type="checkbox" value="<%= addon %>" class="filled-in" <% if (addons.includes(addon)) { %> checked <% } %> />
                                                     <span>
                                                         <%= addon %>
                                                     </span>

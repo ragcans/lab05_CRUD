@@ -1,7 +1,8 @@
 //set up the server
-const express = require( "express" );
+const express = require("express");
 const logger = require("morgan");
 const db = require("./db/db_connection");
+const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 const DEBUG = true;
@@ -15,6 +16,9 @@ app.use( express.urlencoded({ extended: false }) );
 
 // define middleware that logs all incoming requests
 app.use(logger("dev"));
+
+// for parsing 
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // define middleware that serves static resources in the public directory
 app.use(express.static(__dirname + '/public'));
@@ -122,14 +126,15 @@ app.get("/visualizer/:id/delete", ( req, res ) => {
 // define a route for menu CREATE
 const create_menu_sql = `
     INSERT INTO menu 
-        (amount, menu_name, price)
+        (amount, menu_name, price, menu_desc, order_type)
     VALUES 
-        (?, ?, ?);
+        (?, ?, ?, ?, ?);
 `
 
 
 app.post("/visualizer", ( req, res ) => {
-    db.execute(create_menu_sql, [req.body.amount, req.body.menu_name, req.body.price], (error, results) => {
+    console.log(req.body);
+    db.execute(create_menu_sql, [req.body.amount, req.body.menu_name, req.body.price, req.body.description, req.body.order_type], (error, results) => {
         if (DEBUG)
             console.log(error ? error : results);
         if (error)
@@ -144,20 +149,34 @@ app.post("/visualizer", ( req, res ) => {
 // define a route for assignment UPDATE
 const update_menu_sql = `
     UPDATE
-        menu
+        menu, addons
     SET
         order_type = ?,
-        amount = ?,
+        amount = ?, 
+        addons_type = ?
+    WHERE
+        menu.menu_id = ?
+`
+
+const delete_addons_sql = `
+    DELETE
+    FROM 
+        addons
     WHERE
         menu_id = ?
 `
-app.post("/visualizer/:id", ( req, res ) => {
-    db.execute(update_menu_sql, [req.body.ingredients, req.body.amount, req.body.addons], (error, results) => {
+
+app.post("/visualizer/:id", ( req, res ) => { 
+    console.log("reqbod:");
+    console.log(req.body); 
+    console.log("param id:");
+    console.log(req.params.id);
+    db.execute(update_menu_sql, [req.body.ingredients, req.body.amount, req.body.addons, req.params.id], (error, results) => {
         if (DEBUG)
             console.log(error ? error : results);
         if (error)
             res.status(500).send(error); //Internal Server Error
-        else {
+        else { 
             res.redirect(`/visualizer/${req.params.id}`);
         }
     });
